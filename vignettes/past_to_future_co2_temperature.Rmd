@@ -19,6 +19,7 @@ library(ggplot2)
 library(gganimate)
 library(gifski)
 library(here)
+source(here("R/analyse_modobs2.R"))
 ```
 
 # Temperature-CO2 circle
@@ -53,12 +54,12 @@ ggplot() +
 
 Let's unify the datasets by interpolating Bereiter data to regular time steps (years corresponding to the RCP8.5 dataset) and make them transition smoothly by scaling the RCP8.5 curve to match observations from the Bereiter dataset over the last 10 years of the latter dataset.
 ```{r}
-## get years in the rcp dataset
+# get years in the rcp dataset
 years_rcp85 <- dfco2_rcp85 %>%
   # filter(year_ce <= 2001) %>%
   pull(age_yrBP)
 
-## interpolate bereiter values to each year in the rcp dataset
+# interpolate bereiter values to each year in the rcp dataset
 dfco2_bereiter_interpol <- approx(
   x = dfco2_bereiter$age_yrBP,
   y = dfco2_bereiter$co2_ppmv_bereiter,
@@ -74,29 +75,29 @@ dfco2_bereiter_interpol %>%
   ggplot(aes(x = -age_yrBP, y = co2_ppmv_bereiter)) +
   geom_line()
 
-## combine the two datasets: bereiter original and bereiter interpolated
+# combine the two datasets: bereiter original and bereiter interpolated
 dfco2_bereiter <- dfco2_bereiter %>%
   mutate(interpolated = FALSE) %>%
   bind_rows(., dfco2_bereiter_interpol) %>%
   arrange(age_yrBP)
 
-## test plot: ok, still all here
+# test plot: ok, still all here
 dfco2_bereiter %>%
   filter(interpolated) %>%
   ggplot(aes(x = -age_yrBP, y = co2_ppmv_bereiter)) +
   geom_line()
 
-## test plot: rcp dataset
+# test plot: rcp dataset
 ggplot() +
   geom_line(data = dfco2_rcp85, aes(x = year_ce, y = co2_ppmv_rcp85), col = "red") +
   geom_line(data = dfco2_bereiter, aes(x = year_ce, y = co2_ppmv_bereiter)) +
   xlim(800, 2100)
 
-## merge rcp into bereiter
+# merge rcp into bereiter
 dfco2 <- dfco2_bereiter %>%
   left_join(dfco2_rcp85, by = c("age_yrBP", "year_ce"))
 
-## take mean over last 10 years
+# take mean over last 10 years
 f_offset <- dfco2 %>%
   filter(year_ce == 2001) %>%
   summarise_all(list(mean), na.rm = TRUE) %>%
@@ -104,7 +105,7 @@ f_offset <- dfco2 %>%
   mutate(f_offset = co2_ppmv_bereiter / co2_ppmv_rcp85) %>%
   pull(f_offset)
 
-## rescale RCP8.5 data to match Bereiter
+# rescale RCP8.5 data to match Bereiter
 dfco2 <- dfco2 %>%
   mutate(co2_ppmv_rcp85_corr = f_offset * co2_ppmv_rcp85) %>%
   mutate(co2_ppmv_combined = ifelse(is.na(co2_ppmv_bereiter), co2_ppmv_rcp85_corr, co2_ppmv_bereiter))
@@ -142,8 +143,8 @@ ggplot() +
 dftemp_epica <- dftemp_epica_daag %>%
   left_join(dftemp_epica_noaa, by = "age_yrBP")
 
-# dftemp_epica %>%
-#   analyse_modobs2(mod = "dT.x", obs = "dT.y", type = "heat")
+dftemp_epica %>%
+  analyse_modobs2(mod = "dT.x", obs = "dT.y", type = "heat")
 
 # ==> datasets are identical!
 ```
