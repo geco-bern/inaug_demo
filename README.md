@@ -21,21 +21,10 @@ The following data were obtained from external sources and are contained in this
 
 ## Project structure
 
-- `vignettes/`
-
-Contains the full workflow, implemented as a single RMarkdown vignette (`past_to_future_co2_temperature.Rmd`).
-
-- `data-raw/`
-
-Contains original data, obtained from external sources. 
-
-- `data/`
-
-Contains output data files created by the workflow.
-
-- `figures/`
-
-Contains output figure files created by the workflow
+- `vignettes/`: Contains the full workflow, implemented as a single RMarkdown vignette (`past_to_future_co2_temperature.Rmd`).
+- `data-raw/`: Contains original data, obtained from external sources. 
+- `data/`: Contains output data files created by the workflow.
+- `figures/`: Contains output figure files created by the workflow
 
 ## Dependencies
 
