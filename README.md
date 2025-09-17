@@ -9,6 +9,8 @@ Contains data and code for creating:
 
 ## Data
 
+The following data were obtained from external sources and are contained in this repository, stored in `data-raw/`.
+
 ### CO2
 
 - Bereiter et al., 2015
@@ -19,19 +21,19 @@ Contains data and code for creating:
 
 ## Project structure
 
-### `vignettes/`
+- `vignettes/`
 
 Contains the full workflow, implemented as a single RMarkdown vignette (`past_to_future_co2_temperature.Rmd`).
 
-### `data-raw/`
+- `data-raw/`
 
 Contains original data, obtained from external sources. 
 
-### `data/`
+- `data/`
 
 Contains output data files created by the workflow.
 
-### `figures/`
+- `figures/`
 
 Contains output figure files created by the workflow
 
@@ -58,4 +60,8 @@ if (length(new_pkgs) > 0) install.packages(new_pkgs)
 ## License
 
 This is published under a [CC BY-SA license](https://creativecommons.org/licenses/by-sa/4.0/).
+
+## References
+
+Bereiter, B., Eggleston, S., Schmitt, J., Nehrbass‐Ahles, C., Stocker, T. F., Fischer, H., Kipfstuhl, S., and Chappellaz, J.: Revision of the EPICA Dome C CO2 record from 800 to 600 kyr before present, Geophysical Research Letters, 42, 542–549, https://doi.org/10.1002/2014GL061957, 2015.
 
