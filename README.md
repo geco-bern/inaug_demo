@@ -7,7 +7,7 @@ Contains data and code for creating:
 - Homogenised time series of atmospheric CO<sub>2</sub> and temperature from multiple sources, together covering the past (800 ka), until today, and the future (climate scenario to 2100). Outputs (homogenised time series) are stored in `data/`
 - Visualisation of the parallel evolution of temperature and CO<sub>2</sub>. Outputs (figure files) are stored in `figures/`.
 
-The full workflow can be reproduced by running `vignettes/past_to_future_CO<sub>2</sub>_temperature.Rmd`.
+The full workflow can be reproduced by running `vignettes/past_to_future_CO2_temperature.Rmd`.
 
 ## Data
 
