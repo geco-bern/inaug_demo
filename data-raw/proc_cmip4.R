@@ -1,7 +1,3 @@
-library(dplyr)
-library(readr)
-
-# This file is from a project I did a long time ago.
 load(here("data-raw/climatedata_yalestudy.Rdata"))
 
 dftemp_cmip <- climatedata$CCSM4 %>%
@@ -26,8 +22,7 @@ dftemp_cmip <- climatedata$CCSM4 %>%
     by = "time"
   )
 
-# tabular data into CSV
-write_csv(
+write_rds(
   dftemp_cmip,
-  file = here("data-raw/dftemp_cmip.csv")
+  file = here("data-raw/dftemp_cmip.rds")
 )
